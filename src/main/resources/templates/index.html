@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8">
+    <title>List of Students</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+<div class="container my-2">
+    <hr>
+    <h1>Student Notes Management System</h1>
+    <hr>
+    <h1>Student's List</h1>
+    <br>
+
+    <a sec:authorize="hasRole('ROLE_MENTOR')" th:href="@{/create-student}" class="btn btn-primary btn-sm mb-3"> Add
+        new Student </a>
+    <a th:href="@{/search}" class="btn btn-primary btn-sm mb-3">Search a Student</a>
+    <a th:href="@{/statistics}" class="btn btn-primary btn-sm mb-3">Stats of Students</a>
+    <a sec:authorize="hasRole('ROLE_MENTOR')" th:href="@{/no-notes}" class="btn btn-primary btn-sm mb-3">Students with No Notes</a>
+    <a sec:authorize="hasRole('ROLE_REVIEWER')" th:href="@{/more-than-4-notes}" class="btn btn-primary btn-sm mb-3">Students More than 4 Notes</a>
+
+    <a th:href="@{/logout}" class="btn btn-danger" style="float: right">Logout</a>
+    <table border="1" class="table table-hover table-responsive-md">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>First Name</th>
+            <th>Sur Name</th>
+            <th>Notes</th>
+            <th sec:authorize="hasRole('ROLE_MENTOR')">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${students}">
+            <td th:text="${student.id}"></td>
+            <td th:text="${student.email}"></td>
+            <td th:text="${student.firstName}"></td>
+            <td th:text="${student.surName}"></td>
+            <td>
+                <a sec:authorize="hasRole('ROLE_MENTOR')" th:href="@{/showNewNoteForm/{id}(id=${student.id})}"
+                   class="btn btn-success">Add Note</a>
+                <a th:href="@{/showListOfNotes/{id}(id=${student.id})}" class="btn btn-success">All Notes</a>
+            </td>
+            <td sec:authorize="hasRole('ROLE_MENTOR')">
+                <a th:href="@{/showFormForUpdate/{id}(id=${student.id})}" class="btn btn-primary">Update</a>
+                <a th:href="@{/deleteStudent/{id}(id=${student.id})}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

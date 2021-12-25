@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>List of Students</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+<div class="container my-2">
+    <hr>
+    <h1>Student Notes Management System</h1>
+    <hr>
+    <br>
+    <h3>Notes List of a student</h3>
+    <br>
+
+    <table border="1" class="table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th>Notes ID</th>
+            <th>Text</th>
+            <th>Date Of Creation</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="note : ${notes}">
+            <td th:text="${note.id}"></td>
+            <td th:text="${note.text}"></td>
+            <td th:text="${note.dateOfCreation}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+
+    <a th:href="@{/}" class="btn btn-primary btn-sm mb-3"><- Back to Students List</a>
+</div>
+</body>
+</html>
